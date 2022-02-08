@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/fa4cc71529.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+    <script src="/js/bar.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <title>Cinema4all</title>
+  </head>
+
+  <body>
+    <div class="container-header">
+    <header class="main-header">
+      <a href="#" class="logo"><i class="fas fa-film"></i>Cinema4all </a>
+
+      <div id="fa-bars">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="navbar">
+        <li><a href="#home" class="home-active">Home</a></li>
+        <li><a href="">Login</a></li>
+        <li><a href="">Booking</a></li>
+        <li><a href="">About</a></li>
+      </ul>
+      <a href="/partials/sing-in.html" class="btn">Sign In</a>
+    </header>
+
+    <section class="home swiper" id="home">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide image-container">
+          <img src="/images/spider-man.jpeg" alt="" />
+          <div class="home-text">
+            <span>Marvel Universe</span>
+            <h1>Spider Man:No Way Home</h1>
+            <a href="#" class="btn">Book Now</a>
+            <a href="#" class="play">
+              <i class="fas fa-play"></i>
+            </a>
+          </div>
+        </div>
+        <!--Slid2 -->
+
+        <div class="swiper-slide image-container">
+          <img src="/images/The-Kings-Man.jpg" alt="" />
+          <div class="home-text">
+            <span> The-Kings-Man</span>
+            <h1>The King's Man</h1>
+            <a href="#" class="btn">Book Now</a>
+            <a href="#" class="play">
+              <i class="fas fa-play"></i>
+            </a>
+          </div>
+        </div>
+
+        <!--Slid3 -->
+
+        <div class="swiper-slide image-container">
+          <img src="/images/nightmare-ally.jpg" alt="" />
+          <div class="home-text">
+            <span> nightmare-ally</span>
+            <h1>Nightmare Alley</h1>
+            <a href="#" class="btn">Book Now</a>
+            <a href="#" class="play">
+              <i class="fas fa-play"></i>
+            </a>
+          </div>
+        </div>
+        <!--Slid4 -->
+
+        <div class="swiper-slide image-container">
+          <img src="/images/moonfall.jpg" alt="" />
+          <div class="home-text">
+            <span> moonfall</span>
+            <h1>Moon fall</h1>
+            <a href="#" class="btn">Book Now</a>
+            <a href="#" class="play">
+              <i class="fas fa-play"></i>
+            </a>
+          </div>
+        </div>
+        <!--Slid5 -->
+
+        <div class="swiper-slide image-container">
+          <img src="/images/scream.jpeg" alt="" />
+          <div class="home-text">
+            <span> scream</span>
+            <h1>Scream</h1>
+            <a href="#" class="btn">Book Now</a>
+            <a href="#" class="play">
+              <i class="fas fa-play"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-pagination"></div>
+    </section>
+</div>
+
+    <!--Filter Box-->
+<div class="filter-box">
+  <div class="age-filter">
+    <label class="filter-label">
+      Age
+      <select name="filter-down-box">
+        <option value="age-16">+16</option>
+        <option value="age-10">+10</option>
+        <option value="age-6">+6</option>
+      </select>
+    </label>
+  </div>
+  <div class="type-filter">
+    <label class="filter-label">
+      Type
+      <select name="filter-down-box">
+        <option value="action">Action</option>
+        <option value="comedy">Comedy</option>
+        <option value="drama">Drama</option>
+        <option value="horror">Horror</option>
+      </select>
+    </label>
+  </div>
+</div>
+
+
+    <!--Movies Grid-->
+
+    <section class="movies" id="movies">
+      <h2 class="heading-title">IN THE CINEMA</h2>
+      <div class="movies-container">
+        <!--Box1 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/spider-man.jpeg" alt="" />
+          </div>
+          <h3>Spider Man</h3>
+          <span>130 min / Action </span>
+        </div>
+        <!--Box2 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/moonfall.jpg" alt="" />
+          </div>
+          <h3>Moon Fall</h3>
+          <span>130 min / Action </span>
+        </div>
+        <!--Box3 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/nightmare-ally.jpg" alt="" />
+          </div>
+          <h3>Nightmare Alley</h3>
+          <span>130 min / Action </span>
+        </div>
+        <!--Box4 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/scream.jpeg" alt="" />
+          </div>
+          <h3>Scream</h3>
+          <span>130 min / Action </span>
+        </div>
+        <!--Box5 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/The-Kings-Man.jpg" alt="" />
+          </div>
+          <h3>The King's Man</h3>
+          <span>130 min / Action </span>
+        </div>
+        <!--Box6 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/scream.jpeg" alt="" />
+          </div>
+          <h3>Scream</h3>
+          <span>130 min / Action </span>
+        </div>
+         <!--Box7 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/The-Kings-Man.jpg" alt="" />
+          </div>
+          <h3>The King's Man</h3>
+          <span>130 min / Action </span>
+        </div> <!--Box8 -->
+        <div class="box">
+          <div class="box-img">
+            <img src="/images/The-Kings-Man.jpg" alt="" />
+          </div>
+          <h3>The King's Man</h3>
+          <span>130 min / Action </span>
+        </div>
+      </div>
+    </section>
+
+    <!--Coming Soon Movies-->
+    <h2 class="heading-title">Coming soon</h2>
+    <div class="movies-container">
+      <!--Coming Soon-GRID -->
+      <div class="coming-container swiper">
+        <div class="swiper-wrapper">
+          <!--Box1 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/spider-man.jpeg" alt="" />
+            </div>
+            <h3>Spider Man</h3>
+            <span>130 min / Action </span>
+          </div>
+          <!--Box2 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/moonfall.jpg" alt="" />
+            </div>
+            <h3>Moon Fall</h3>
+            <span>130 min / Action </span>
+          </div>
+          <!--Box3 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/nightmare-ally.jpg" alt="" />
+            </div>
+            <h3>Nightmare Alley</h3>
+            <span>130 min / Action </span>
+          </div>
+          <!--Box4 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/scream.jpeg" alt="" />
+            </div>
+            <h3>Scream</h3>
+            <span>130 min / Action </span>
+          </div>
+          <!--Box5 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/The-Kings-Man.jpg" alt="" />
+            </div>
+            <h3>The King's Man</h3>
+            <span>130 min / Action </span>
+          </div>
+          <!--Box6 -->
+          <div class="swiper-slide box">
+            <div class="box-img">
+              <img src="/images/scream.jpeg" alt="" />
+            </div>
+            <h3>Scream</h3>
+            <span>130 min / Action </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="footer">
+      <a href="#" class="logo"><i class="fas fa-film"></i>Cinema4all </a>
+      <div class="social">
+        <i class="fab fa-facebook-square"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+      </div>
+    </section>
+
+    <div class="copyrights">
+      <p>
+        &#169 Cinema4all All right Reserved. 
+      </p>
+    </div>
+    <!--Swiper JS-->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/filter.js"></script>
+    
+  </body>
+</html>
