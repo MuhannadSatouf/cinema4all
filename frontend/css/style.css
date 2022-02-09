@@ -195,7 +195,7 @@ section {
 
 /*______________________________________________________________*/
 /*MOVIES-CONTAINER*/
-.movies-container {
+.movies-container, .active-movies-container, .coming-movies-container {
   display: grid;
   max-width: 950px;
   margin-right: auto;
