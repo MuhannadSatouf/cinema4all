@@ -6,3 +6,6 @@ const app = express();
 app.use(express.static("frontend"));
 //start the webserver on port 3000
 app.listen(3000, () => console.log("//http:localhost:3000"));
+
+const api = require('./rest-api');
+api(app);
