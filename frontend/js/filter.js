@@ -1,10 +1,12 @@
 document.querySelectorAll(".filter-label-age").forEach(setupSelectorAge);
 document.querySelectorAll(".filter-label-type").forEach(setupSelectorType);
+var age = "age-all";
+var MovieType = "all";
 
 function setupSelectorAge(selector) {
   selector.addEventListener("change", (e) => {
     console.log("changed", e.target.value);
-    filterAge(e.target.value);
+    age = e.target.value;
   });
 
   selector.addEventListener("mousedown", (e) => {
@@ -46,6 +48,7 @@ function setupSelectorAge(selector) {
 
 function setupSelectorType(selector) {
   selector.addEventListener("change", (e) => {
+    MovieType = e.target.value;
     console.log("changed", e.target.value);
   });
 
@@ -92,17 +95,17 @@ async function filterAge(age) {
   if (age === "age-16") {
     renderMovieList(
       ".active-movies-container",
-      await getData("/api/allActiveMoviesOver16")
+      await getData("/api/allActiveMoviesOver")
     );
   } else if (age === "age-10") {
     renderMovieList(
       ".active-movies-container",
-      await getData("/api/allActiveMoviesOver10")
+      await getData("/api/allActiveMoviesOver")
     );
   } else if (age === "age-6") {
     renderMovieList(
       ".active-movies-container",
-      await getData("/api/allActiveMoviesOver6")
+      await getData("/api/allActiveMoviesOver")
     );
   } else {
     renderMovieList(
@@ -110,4 +113,11 @@ async function filterAge(age) {
       await getData("/api/allActiveMovies")
     );
   }
+}
+
+async function applyFilter(age, MovieType) {
+  console.log("This is the 2 " + MovieType);
+  console.log("This is the " + age);
+
+  //Here will inject data for filtering.
 }
