@@ -65,9 +65,8 @@ var swiper = new Swiper(".coming-container", {
         <span>130 min / Action </span>
       </div>*/
 
-
 function renderMovieList(cssSelector, list) {
-  let html = '';
+  let html = "";
 
   for (let item in Object.entries(list)) {
     console.log(list[item].title);
@@ -75,17 +74,18 @@ function renderMovieList(cssSelector, list) {
     html += '<div class="box">';
     html += '<div class="box-img">';
     html += '<img src="/images/' + list[item].image2 + '" alt="" />';
-    html += '</div>';
-    html += '<h3>' + list[item].title + '</h3>';
-    html += '<span>' + list[item].duration + ' / ' + list[item].genre + '</span>';
-    html += '</div >';
+    html += "</div>";
+    html += "<h3>" + list[item].title + "</h3>";
+    html +=
+      "<span>" + list[item].duration + " / " + list[item].genre + "</span>";
+    html += "</div >";
   }
   document.querySelector(cssSelector).innerHTML = html;
   return html;
 }
 
 function renderComingMovieList(cssSelector, list) {
-  let html = '';
+  let html = "";
   html += '<div class="coming-container swiper">';
   html += '<div class="swiper-wrapper">';
 
@@ -95,20 +95,27 @@ function renderComingMovieList(cssSelector, list) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
     html += '<img src="/images/' + list[item].image2 + '" alt="" />';
-    html += '</div>';
-    html += '<h3>' + list[item].title + '</h3>';
-    html += '<span>' + list[item].duration + ' / ' + list[item].genre + '</span>';
-    html += '</div >';
+    html += "</div>";
+    html += "<h3>" + list[item].title + "</h3>";
+    html +=
+      "<span>" + list[item].duration + " / " + list[item].genre + "</span>";
+    html += "</div >";
   }
 
-  html += '</div></div>';
+  html += "</div></div>";
   document.querySelector(cssSelector).innerHTML = html;
   return html;
 }
 
 async function start() {
-  renderMovieList('.active-movies-container', await getData('/api/allActiveMovies'));
-  renderMovieList('.coming-movies-container', await getData('/api/allComingMovies'));
+  renderMovieList(
+    ".active-movies-container",
+    await getData("/api/allActiveMovies")
+  );
+  renderMovieList(
+    ".coming-movies-container",
+    await getData("/api/allComingMovies")
+  );
 }
 /*
 function generateCommonInfo(html, Object) {

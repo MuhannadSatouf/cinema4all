@@ -195,7 +195,9 @@ section {
 
 /*______________________________________________________________*/
 /*MOVIES-CONTAINER*/
-.movies-container, .active-movies-container, .coming-movies-container {
+.movies-container,
+.active-movies-container,
+.coming-movies-container {
   display: grid;
   max-width: 950px;
   margin-right: auto;
@@ -326,6 +328,10 @@ section {
     transition: 0.4s all linear;
     text-align: center;
   }
+  .logo,
+  .fas {
+    font-size: 25px;
+  }
 
   .navbar a {
     width: 100%;
@@ -389,14 +395,16 @@ section {
   margin: 10px;
 }
 
-.filter-label {
+.filter-label-age,
+.filter-label-type {
   position: relative;
   display: inline-block;
   font-size: 20px;
   margin-top: 25px;
 }
 
-.filter-label select {
+.filter-label-age select,
+.filter-label-type select {
   display: block;
   width: 200px;
   min-height: 35px;
@@ -413,7 +421,8 @@ section {
   -ms-appearance: none;
 }
 
-.filter-label::after {
+.filter-label-age::after,
+.filter-label-type::after {
   content: "";
   border-width: 5px;
   border-style: solid;
@@ -426,7 +435,8 @@ section {
   bottom: 10px;
 }
 
-.filter-label .selector-options {
+.filter-label-age .selector-options,
+.filter-label-type .selector-options {
   list-style: none;
   padding: 5px 0;
   margin: 0;
@@ -440,7 +450,8 @@ section {
   top: 35%;
 }
 
-.filter-label .selector-options li {
+.filter-label-age .selector-options li,
+.filter-label-type .selector-options li {
   height: 35px;
   display: flex;
   align-items: center;
@@ -449,6 +460,7 @@ section {
   transition: background 0.3s ease;
 }
 
-.filter-label .selector-options li:hover {
+.filter-label-age .selector-options li:hover,
+.filter-label-type .selector-options li:hover {
   background: #2b0f22;
 }
