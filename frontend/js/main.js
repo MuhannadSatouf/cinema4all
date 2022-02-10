@@ -55,31 +55,19 @@ var swiper = new Swiper(".coming-container", {
   },
 });
 
-/* <div class="movies-container">
-      <!--Box1 -->
-      <div class="box">
-        <div class="box-img">
-          <img src="/images/spider-man_portr.jpeg" alt="" />
-        </div>
-        <h3>Spider Man</h3>
-        <span>130 min / Action </span>
-      </div>*/
-
-
 function renderMovieList(cssSelector, list) {
   let html = '';
 
-  for (let item in Object.entries(list)) {
-    console.log(list[item].title);
-
+  for (let i in Object.entries(list)) {
     html += '<div class="box">';
     html += '<div class="box-img">';
-    html += '<img src="/images/' + list[item].image2 + '" alt="" />';
+    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
     html += '</div>';
-    html += '<h3>' + list[item].title + '</h3>';
-    html += '<span>' + list[item].duration + ' / ' + list[item].genre + '</span>';
+    html += '<h3>' + list[i].title + '</h3>';
+    html += '<span>' + list[i].duration + ' / ' + list[i].genre + '</span>';
     html += '</div >';
   }
+
   document.querySelector(cssSelector).innerHTML = html;
   return html;
 }
@@ -89,15 +77,13 @@ function renderComingMovieList(cssSelector, list) {
   html += '<div class="coming-container swiper">';
   html += '<div class="swiper-wrapper">';
 
-  for (let item in Object.entries(list)) {
-    console.log(list[item].title);
-
+  for (let i in Object.entries(list)) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
-    html += '<img src="/images/' + list[item].image2 + '" alt="" />';
+    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
     html += '</div>';
-    html += '<h3>' + list[item].title + '</h3>';
-    html += '<span>' + list[item].duration + ' / ' + list[item].genre + '</span>';
+    html += '<h3>' + list[i].title + '</h3>';
+    html += '<span>' + list[i].duration + ' / ' + list[i].genre + '</span>';
     html += '</div >';
   }
 
@@ -110,14 +96,5 @@ async function start() {
   renderMovieList('.active-movies-container', await getData('/api/allActiveMovies'));
   renderMovieList('.coming-movies-container', await getData('/api/allComingMovies'));
 }
-/*
-function generateCommonInfo(html, Object) {
-  html += '<div class="box-img">';
-  html += '<img src="/images/' + Object.image2 + '" alt="" />';
-  html += '</div>';
-  html += '<h3>' + Object.title + '</h3>';
-  html += '<span>' + Object.duration + ' / ' + Object.genre + '</span>';
-  return html;
-}*/
 
 start();
