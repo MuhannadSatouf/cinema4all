@@ -60,6 +60,7 @@ function renderMovieList(cssSelector, list) {
 
   for (let i in Object.entries(list)) {
     html += '<div class="box">';
+    html += "<div id=" + list[i].id + "></div>";
     html += '<div class="box-img">';
     html += '<img src="/images/' + list[i].image2 + '" alt="" />';
     html += "</div>";

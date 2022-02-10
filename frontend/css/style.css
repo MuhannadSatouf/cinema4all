@@ -91,11 +91,20 @@ section {
   border-radius: 10px;
   color: var(--text-color);
 }
-.btn:hover {
+.btn:hover,
+.apply-filter-btn:hover {
   background: var(--main-color);
   transition: 0.3s;
 }
-
+.apply-filter-btn {
+  height: 30px;
+  padding: 10px 20px;
+  background: var(--button-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  margin-top: 65px;
+  margin-left: 10px;
+}
 /*______________________________________________________________*/
 /*Grid */
 
