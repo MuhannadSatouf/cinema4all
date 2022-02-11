@@ -106,7 +106,7 @@ async function start() {
 }
 
 
-document.querySelector('ul').addEventListener('click', function (event) {
+document.querySelector('btn').addEventListener('click', function (event) {
 
 
   let pageTag = event.target.closest('a')
