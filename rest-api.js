@@ -6,8 +6,6 @@ let views = db.prepare(`
   select name
   from sqlite_schema
   where (type = 'view')
-  or (type='table' and name like 'bookingHeader')
-  or (type='table' and name like 'bookingLine')
   `).all();
 
 let tables = db.prepare(`
