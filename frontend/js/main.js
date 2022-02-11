@@ -62,7 +62,7 @@ function renderMovieList(cssSelector, list) {
     html += '<div class="box">';
     html += "<div id=" + list[i].id + "></div>";
     html += '<div class="box-img">';
-    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + list[i].title + "</h3>";
     html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
@@ -82,7 +82,7 @@ function renderComingMovieList(cssSelector, list) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
 
-    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + list[i].title + "</h3>";
     html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
@@ -104,6 +104,8 @@ async function start() {
     await getData("/api/allComingMovies")
   );
 }
+
+start();
 
 
 document.querySelector('btn').addEventListener('click', function (event) {
@@ -172,4 +174,4 @@ async function router() {
 window.addEventListener('popstate', router)
 
 
-start();
+
