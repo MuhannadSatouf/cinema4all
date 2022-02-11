@@ -6,26 +6,40 @@ let views = db.prepare(`
   select name
   from sqlite_schema
   where (type = 'view')
-  and name not like 'sqlite%'
   `).all();
+
+let tables = db.prepare(`
+  select name
+  from sqlite_schema
+  where (type='table' and name like 'bookingHeader')
+  or (type='table' and name like 'bookingLine')
+  `).all();
+
+
 
 module.exports = function api(app) {
   //add a special route that will list all views
   app.get('/api/views', (req, res) => {
     res.json(views);
   });
-  for (let { name } of views) {
+  app.get('/api/tables', (req, res) => {
+    res.json(tables);
+  });
+
+  let together = views.concat(tables);
+
+  for (let { name } of together) {
     app.get('/api/' + name, (req, res) => {
       let stmt = db.prepare(`
         SELECT * FROM ${name}
     `);
-      let addresses = stmt.all();
-      res.json(addresses);
+      let links = stmt.all();
+      res.json(links);
     });
   }
 
   //Create a route to get a single post by its id
-  for (let { name } of views) {
+  for (let { name } of together) {
     app.get('/api/' + name + '/:id', (req, res) => {
       let stmt = db.prepare(`
         SELECT * FROM ${name} 
