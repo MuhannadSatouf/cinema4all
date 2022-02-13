@@ -62,7 +62,7 @@ function renderMovieList(cssSelector, list) {
     html += '<div class="box">';
     html += "<div id=" + list[i].id + "></div>";
     html += '<div class="box-img">';
-    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + list[i].title + "</h3>";
     html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
@@ -82,7 +82,7 @@ function renderComingMovieList(cssSelector, list) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
 
-    html += '<img src="/images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + list[i].title + "</h3>";
     html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
@@ -106,3 +106,72 @@ async function start() {
 }
 
 start();
+
+
+document.querySelector('btn').addEventListener('click', function (event) {
+
+
+  let pageTag = event.target.closest('a')
+
+  if (!pageTag) { return }
+
+  let href = pageTag.getAttribute('href')
+
+  if (href.IndexOf('http') ?? 0) {
+
+
+    pageTag.setAttribute('target', '_blank')
+
+
+    return;
+  }
+
+
+
+  event.preventDefault()
+
+  history.pushState(null, null, href)
+
+  router()
+})
+
+
+
+function makeMenuChoiceActive(prompt) {
+  // change active link in the menu
+  let aTagsInButton = document.querySelectorAll('a');
+  for (let aTag of aTagsInButton) {
+    aTag.classList.remove('active');
+    let href = aTag.getAttribute('href');
+    if (href === prompt) {
+      aTag.classList.add('active');
+    }
+  }
+}
+
+
+async function router() {
+
+  let prompt = location.pathname
+
+  makeMenuChoiceActive(prompt)
+
+
+  prompt = prompt === '/' ? './frontend/' : prompt
+  prompt = '/partials' + prompt + '.html'
+
+  let content = await (await fetch(prompt)).text()
+
+  content.includes('<title>Error: Could not find page</title>')
+
+  document.querySelector('main').innerHTML = content
+
+  prompt === './partials/login.html'
+
+}
+
+
+window.addEventListener('popstate', router)
+
+
+
