@@ -58,14 +58,14 @@ var swiper = new Swiper(".coming-container", {
 function renderMovieList(cssSelector, list) {
   let html = "";
 
-  for (let i in Object.entries(list)) {
+  for (let movie of list) {
     html += '<div class="box">';
-    html += "<div id=" + list[i].id + "></div>";
+    html += "<div id=" + movie.id + "></div>";
     html += '<div class="box-img">';
-    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + movie.image2 + '" alt="" />';
     html += "</div>";
-    html += "<h3>" + list[i].title + "</h3>";
-    html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
+    html += "<h3>" + movie.title + "</h3>";
+    html += "<span>" + movie.duration + " / " + movie.genre + "</span>";
     html += "</div >";
   }
 
@@ -78,14 +78,14 @@ function renderComingMovieList(cssSelector, list) {
   html += '<div class="coming-container swiper">';
   html += '<div class="swiper-wrapper">';
 
-  for (let i in Object.entries(list)) {
+  for (let movie of list) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
 
-    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
+    html += '<img src="./images/' + movie.image2 + '" alt="" />';
     html += "</div>";
-    html += "<h3>" + list[i].title + "</h3>";
-    html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
+    html += "<h3>" + movie.title + "</h3>";
+    html += "<span>" + movie.duration + " / " + movie.genre + "</span>";
     html += "</div >";
   }
 
