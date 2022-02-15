@@ -1,12 +1,9 @@
 document.querySelectorAll(".filter-label-age").forEach(setupSelectorAge);
 document.querySelectorAll(".filter-label-type").forEach(setupSelectorType);
-var age = "age-all";
-var MovieType = "all";
 
 function setupSelectorAge(selector) {
   selector.addEventListener("change", (e) => {
     console.log("changed", e.target.value);
-    age = e.target.value;
   });
 
   selector.addEventListener("mousedown", (e) => {
@@ -89,35 +86,79 @@ function setupSelectorType(selector) {
   });
 }
 
-async function filterType(type) {}
+function renderMovieList(cssSelector, list) {
+  let html = "";
 
-async function filterAge(age) {
-  if (age === "age-16") {
-    renderMovieList(
-      ".active-movies-container",
-      await getData("/api/allActiveMoviesOver")
-    );
-  } else if (age === "age-10") {
-    renderMovieList(
-      ".active-movies-container",
-      await getData("/api/allActiveMoviesOver")
-    );
-  } else if (age === "age-6") {
-    renderMovieList(
-      ".active-movies-container",
-      await getData("/api/allActiveMoviesOver")
-    );
-  } else {
-    renderMovieList(
-      ".active-movies-container",
-      await getData("/api/allActiveMovies")
-    );
+  for (let i in Object.entries(list)) {
+    html += '<div class="box">';
+    html += "<div id=" + list[i].id + "></div>";
+    html += '<div class="box-img">';
+    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
+    html += "</div>";
+    html += "<h3>" + list[i].title + "</h3>";
+    html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
+    html += "</div >";
   }
+
+  document.querySelector(cssSelector).innerHTML = html;
+  var items = document.getElementsByClassName("box");
+  for (let i = 0; i < items.length; i++) {
+    items[i].addEventListener("click", function () {
+      console.log(items[i]);
+    });
+  }
+  return html;
 }
 
-async function applyFilter(age, MovieType) {
-  console.log("This is the 2 " + MovieType);
-  console.log("This is the " + age);
+async function start() {
+  renderMovieList(
+    ".active-movies-container",
+    await getData("/api/allActiveMovies")
+  );
+  renderMovieList(
+    ".coming-movies-container",
+    await getData("/api/allComingMovies")
+  );
+}
 
-  //Here will inject data for filtering.
+async function applyFilter() {
+  let type = document.getElementById("filter-down-box-type").value;
+  let age = document.getElementById("filter-down-box-age").value;
+
+  console.log(type);
+  if (age != "all") {
+    age = Math.floor(age);
+  }
+
+  let movieList = await getData("/api/allActiveMovies");
+  let filterList = [];
+
+  for (let i = 0; i < movieList.length; i++) {
+    //let genre = movieList[i].genre.split(", ");
+
+    if (movieList[i].ageLimit <= age) {
+      console.log(movieList[i].genre);
+      if (type != "all") {
+        if (movieList[i].genre.includes(type)) {
+          filterList.push(movieList[i]);
+        }
+      }
+
+      console.log(filterList.length);
+      renderMovieList(".active-movies-container", filterList);
+    }
+
+    if (age == "all" && type == "all") {
+      start();
+    }
+  }
+}
+function loopGenre(genre) {
+  console.log("genre List :" + genre);
+  let genreText;
+  for (let i = 0; i < genre.length; i++) {
+    genreText = genre[i];
+    console.log("genre List :" + genreText);
+  }
+  return genreText;
 }

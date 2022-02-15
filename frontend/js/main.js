@@ -70,6 +70,12 @@ function renderMovieList(cssSelector, list) {
   }
 
   document.querySelector(cssSelector).innerHTML = html;
+  var items = document.getElementsByClassName("box");
+  for (let i = 0; i < items.length; i++) {
+    items[i].addEventListener("click", function () {
+      console.log(items[i]);
+    });
+  }
   return html;
 }
 
@@ -91,6 +97,7 @@ function renderComingMovieList(cssSelector, list) {
 
   html += "</div></div>";
   document.querySelector(cssSelector).innerHTML = html;
+
   return html;
 }
 
@@ -107,71 +114,55 @@ async function start() {
 
 start();
 
+document.querySelector("btn").addEventListener("click", function (event) {
+  let pageTag = event.target.closest("a");
 
-document.querySelector('btn').addEventListener('click', function (event) {
+  if (!pageTag) {
+    return;
+  }
 
+  let href = pageTag.getAttribute("href");
 
-  let pageTag = event.target.closest('a')
-
-  if (!pageTag) { return }
-
-  let href = pageTag.getAttribute('href')
-
-  if (href.IndexOf('http') ?? 0) {
-
-
-    pageTag.setAttribute('target', '_blank')
-
+  if (href.IndexOf("http") ?? 0) {
+    pageTag.setAttribute("target", "_blank");
 
     return;
   }
 
+  event.preventDefault();
 
+  history.pushState(null, null, href);
 
-  event.preventDefault()
-
-  history.pushState(null, null, href)
-
-  router()
-})
-
-
+  router();
+});
 
 function makeMenuChoiceActive(prompt) {
   // change active link in the menu
-  let aTagsInButton = document.querySelectorAll('a');
+  let aTagsInButton = document.querySelectorAll("a");
   for (let aTag of aTagsInButton) {
-    aTag.classList.remove('active');
-    let href = aTag.getAttribute('href');
+    aTag.classList.remove("active");
+    let href = aTag.getAttribute("href");
     if (href === prompt) {
-      aTag.classList.add('active');
+      aTag.classList.add("active");
     }
   }
 }
 
-
 async function router() {
+  let prompt = location.pathname;
 
-  let prompt = location.pathname
+  makeMenuChoiceActive(prompt);
 
-  makeMenuChoiceActive(prompt)
+  prompt = prompt === "/" ? "./frontend/" : prompt;
+  prompt = "/partials" + prompt + ".html";
 
+  let content = await (await fetch(prompt)).text();
 
-  prompt = prompt === '/' ? './frontend/' : prompt
-  prompt = '/partials' + prompt + '.html'
+  content.includes("<title>Error: Could not find page</title>");
 
-  let content = await (await fetch(prompt)).text()
+  document.querySelector("main").innerHTML = content;
 
-  content.includes('<title>Error: Could not find page</title>')
-
-  document.querySelector('main').innerHTML = content
-
-  prompt === './partials/login.html'
-
+  prompt === "./partials/login.html";
 }
 
-
-window.addEventListener('popstate', router)
-
-
-
+window.addEventListener("popstate", router);
