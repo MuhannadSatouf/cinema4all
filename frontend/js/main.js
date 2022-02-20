@@ -57,11 +57,10 @@ var swiper = new Swiper(".coming-container", {
 
 function renderMovieList(cssSelector, list) {
   let html = "";
-
   for (let movie of list) {
-    html += '<div class="box">';
+    html += '<div class="box" id=' + movie.id + ">";
     html += "<div id=" + movie.id + "></div>";
-    html += '<div class="box-img">';
+    html += '<div id="box-img" class="box-img">';
     html += '<img src="./images/' + movie.image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + movie.title + "</h3>";
@@ -70,13 +69,22 @@ function renderMovieList(cssSelector, list) {
   }
 
   document.querySelector(cssSelector).innerHTML = html;
+
+  //When click on the image will take you to movie page
+  showMovieDetailsAndTrailer();
+
+  return html;
+}
+
+function showMovieDetailsAndTrailer(cssSelector, movie) {
   var items = document.getElementsByClassName("box");
   for (let i = 0; i < items.length; i++) {
     items[i].addEventListener("click", function () {
       console.log(items[i]);
+      var movieId = items[i].id;
+      showMovieById(movieId);
     });
   }
-  return html;
 }
 
 function renderComingMovieList(cssSelector, list) {
@@ -87,7 +95,6 @@ function renderComingMovieList(cssSelector, list) {
   for (let movie of list) {
     html += '<div class="swiper-slide box">';
     html += '<div class="box-img">';
-
     html += '<img src="./images/' + movie.image2 + '" alt="" />';
     html += "</div>";
     html += "<h3>" + movie.title + "</h3>";
@@ -114,6 +121,7 @@ async function start() {
 
 start();
 
+/*
 document.querySelector("btn").addEventListener("click", function (event) {
   let pageTag = event.target.closest("a");
 
@@ -135,6 +143,7 @@ document.querySelector("btn").addEventListener("click", function (event) {
 
   router();
 });
+*/
 
 function makeMenuChoiceActive(prompt) {
   // change active link in the menu
