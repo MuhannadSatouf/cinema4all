@@ -1,5 +1,4 @@
 function renderMovie(cssSelector, movie) {
-  //document.querySelector("main").get;
   let html = "";
   html += '<div class="movie-page">';
   html += '<div class="box">';
