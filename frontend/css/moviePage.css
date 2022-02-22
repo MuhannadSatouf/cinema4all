@@ -6,10 +6,15 @@
 }
 
 .video-box {
-  margin-top: 50px;
+  margin-top: 200px;
 }
 
 iframe {
   width: 550px;
   height: 600px;
+}
+
+.movie-box {
+  margin-top: 200px;
+  background-color: aliceblue;
 }

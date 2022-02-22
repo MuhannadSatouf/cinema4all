@@ -1,7 +1,7 @@
 function renderMovie(cssSelector, movie) {
   let html = "";
   html += '<div class="movie-page">';
-  html += '<div class="box">';
+  html += '<div class="box" id="movie-box">';
   html += '<div id="box-img" class="box-img" >';
   html += '<img src="./images/' + movie.image2 + '" alt="" />';
   html += "</div>";
