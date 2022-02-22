@@ -1,0 +1,15 @@
+.movie-page {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-box {
+  margin-top: 50px;
+}
+
+iframe {
+  width: 550px;
+  height: 600px;
+}

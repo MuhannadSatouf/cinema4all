@@ -86,46 +86,11 @@ function setupSelectorType(selector) {
   });
 }
 
-function renderMovieList(cssSelector, list) {
-  let html = "";
-
-  for (let i in Object.entries(list)) {
-    html += '<div class="box">';
-    html += "<div id=" + list[i].id + "></div>";
-    html += '<div class="box-img">';
-    html += '<img src="./images/' + list[i].image2 + '" alt="" />';
-    html += "</div>";
-    html += "<h3>" + list[i].title + "</h3>";
-    html += "<span>" + list[i].duration + " / " + list[i].genre + "</span>";
-    html += "</div >";
-  }
-
-  document.querySelector(cssSelector).innerHTML = html;
-  var items = document.getElementsByClassName("box");
-  for (let i = 0; i < items.length; i++) {
-    items[i].addEventListener("click", function () {
-      console.log(items[i]);
-    });
-  }
-  return html;
-}
-
-async function start() {
-  renderMovieList(
-    ".active-movies-container",
-    await getData("/api/allActiveMovies")
-  );
-  renderMovieList(
-    ".coming-movies-container",
-    await getData("/api/allComingMovies")
-  );
-}
-
+//Click on Submit button for filtering
 async function applyFilter() {
   let type = document.getElementById("filter-down-box-type").value;
   let age = document.getElementById("filter-down-box-age").value;
 
-  console.log(type);
   if (age != "all") {
     age = Math.floor(age);
   }
@@ -134,31 +99,32 @@ async function applyFilter() {
   let filterList = [];
 
   for (let i = 0; i < movieList.length; i++) {
-    //let genre = movieList[i].genre.split(", ");
-
     if (movieList[i].ageLimit <= age) {
-      console.log(movieList[i].genre);
       if (type != "all") {
         if (movieList[i].genre.includes(type)) {
           filterList.push(movieList[i]);
         }
       }
-
-      console.log(filterList.length);
+      if (type == "all") {
+        filterList.push(movieList[i]);
+      }
+      renderMovieList(".active-movies-container", filterList);
+    }
+    if (age == "all") {
+      if (type != "all") {
+        if (movieList[i].genre.includes(type)) {
+          filterList.push(movieList[i]);
+        }
+      }
       renderMovieList(".active-movies-container", filterList);
     }
 
     if (age == "all" && type == "all") {
+      // Will rerender the first page with all movies
       start();
     }
+    if (filterList.length == 0) {
+      //Another thing ti display at there is no movie with that filter
+    }
   }
-}
-function loopGenre(genre) {
-  console.log("genre List :" + genre);
-  let genreText;
-  for (let i = 0; i < genre.length; i++) {
-    genreText = genre[i];
-    console.log("genre List :" + genreText);
-  }
-  return genreText;
 }
