@@ -97,11 +97,12 @@ section {
   transition: 0.3s;
 }
 .apply-filter-btn {
-  height: 30px;
-  padding: 10px 20px;
+  height: 35px;
+  width: 70px;
   background: var(--button-color);
   border-radius: 10px;
   color: var(--text-color);
+  font-weight: 500;
   margin-top: 65px;
   margin-left: 10px;
 }
