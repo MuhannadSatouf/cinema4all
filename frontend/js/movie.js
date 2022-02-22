@@ -13,7 +13,7 @@ function renderMovie(cssSelector, movie) {
   html += "<span>" + movie.duration + " / " + movie.genre + "</span>";
   html += "</div >";
   html += '<div class="video-box">';
-  html += "<iframe  src=" + movie.trailer + "?controls=0" + ">";
+  html += "<iframe  src=" + movie.trailer + '>';
   html += "</iframe>";
   html += "</div >";
   html += "</div >";
