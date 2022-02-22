@@ -83,6 +83,9 @@ module.exports = function api(app) {
         if (result === null) { res.status(404); }
         res.json(result);
       });
+
+
+
       // booking lines will be returned for a specific header Id.
     } else if ({ name }.name === 'bookingLine') {
       app.get('/api/' + name + '/:bookingId', (req, res) => {
@@ -95,6 +98,23 @@ module.exports = function api(app) {
         res.json(result);
       });
     }
+
+
+    app.post('/api/' + name, (req, res) => {   // is ont working - received null object as req.????
+      // do not let the id's to be set manually
+      //delete req.body.id;
+      console.log(req);
+      let qry = `
+  INSERT INTO ${name} (${Object.keys(req.body)})
+  VALUES (${Object.keys(req.body).map(x => ':' + x)}))
+  `;
+      console.log(qry);
+      let stmt = db.prepare(qry);
+      res.json(stmt.run(req.body));
+    });
+
   }
+
+
 
 }
