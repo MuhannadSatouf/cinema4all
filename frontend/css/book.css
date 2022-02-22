@@ -18,26 +18,15 @@
   list-style: none;
   scroll-behavior: smooth;
 }
-/*
-.movie-container select {
-  background-color: #fff;
-  border: 0;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-left: 10px;
-  padding: 5px 15px 5px 15px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-}*/
 
 .movie-container select {
   display: block;
   width: 200px;
   min-height: 35px;
-  background: #622252;
+ 
+  background: var(--heading-color);
   border-radius: 3px;
-  border: 2px solid var(--heading-color);
+  border: 2px solid var(--button-color);
   outline: none;
   padding: 0 20px 0 10px;
   margin-top: 5px;

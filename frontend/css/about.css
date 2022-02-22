@@ -29,7 +29,7 @@
 
 .container-about {
   padding: 0 16px;
-  background-color: rgba(199, 48, 48, 0.2);
+  background-color: var(--heading-color);
 }
 
 .container-about p {
