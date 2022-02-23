@@ -419,6 +419,7 @@ section {
   width: 200px;
   min-height: 35px;
   background: var(--heading-color);
+   color: #fff;   /**/
   /*background: #622252;*/
   border-radius: 3px;
   /*border: 2px solid var(--heading-color);*/
