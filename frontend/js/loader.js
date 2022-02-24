@@ -21,6 +21,9 @@ document.querySelector('header').addEventListener('click', function (event) {
     return;
   }
 
+
+ 
+
   // it's an internal link
 
   // prevent the default behavior of the browser
@@ -59,16 +62,22 @@ async function router() {
     });
   }
 
+  
+  
+
   route = route === "/" ? "/start" : route;
   route = "/partials" + route + ".html";
 
   let content = await (await fetch(route)).text();
 
-  content.includes("<title>Error: Could not find page</title>");
-
+  content.includes("<title>Error: Could not find page</title>")
+  
   document.querySelector("main").innerHTML = content;
 
   route === "/partials/start.html" && start();
+
+ 
+
 }
 
 window.addEventListener("popstate", router);
@@ -98,3 +107,7 @@ function loadScript(url, callback) {
   script.src = url;
   document.getElementsByTagName("head")[0].appendChild(script);
 }
+
+
+
+

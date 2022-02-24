@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../css/login.css" />
   <div id="LoginBox" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php" method="post">
+    <form class="modal-content animate" action="/action_page.php" method="get">
       <div class="imgcontainer">
         <span onclick="document.getElementById('LoginBox').style.display='none'" class="close"
           title="Close Modal">&times;</span>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="container" style="background: color #000;">
-        <button type="button" onclick="document.getElementById('LoginBox').style.display='none'"
+        <button id='cancelButton'type="button" onclick="document.getElementById('LoginBox').style.display='none'&& document.location.replace('/')"
           class="cancelbtn">Cancel</button>
       </div>
     </form>
