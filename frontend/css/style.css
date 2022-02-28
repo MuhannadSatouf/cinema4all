@@ -98,7 +98,7 @@ section {
 }
 .apply-filter-btn {
   height: 30px;
-  padding: 10px 20px;
+  width: 60px;
   background: var(--button-color);
   border-radius: 10px;
   color: var(--text-color);
@@ -389,6 +389,17 @@ section {
   .box .box-img {
     height: 250px;
   }
+  .filter-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .filter-label-age select,
+  .filter-label-type select {
+    display: block;
+    width: 150px;
+    background: #622252;
+    border-radius: 3px;
+  }
 }
 
 /*FILTER BOX*/
@@ -417,7 +428,7 @@ section {
 .filter-label-age select,
 .filter-label-type select {
   display: block;
-  width: 200px;
+  width: 150px;
   min-height: 35px;
   background: #622252;
   border-radius: 3px;
