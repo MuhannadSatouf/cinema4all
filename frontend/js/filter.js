@@ -84,7 +84,7 @@ function setupSelectorType(selector) {
 }
 
 //Click on Submit button for filtering
-async function newApplyFilter() {
+async function applyFilter() {
   let type = document.getElementById("filter-down-box-type").value;
   let age = document.getElementById("filter-down-box-age").value;
 

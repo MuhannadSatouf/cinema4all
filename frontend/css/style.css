@@ -84,12 +84,20 @@ section {
 /*______________________________________________________________*/
 /*BTN */
 
-.btn {
-  padding: 10px 20px;
+.btn,
+.apply-filter-btn {
+  height: 35px;
+  min-width: 80px;
+  margin-left: 10px;
   background: var(--button-color);
   font-weight: 500;
   border-radius: 10px;
   color: var(--text-color);
+  text-align: center;
+  display: inline-block;
+}
+.btn {
+  padding-top: 5px;
 }
 .btn:hover,
 .apply-filter-btn:hover {
@@ -103,7 +111,6 @@ section {
   border-radius: 10px;
   color: var(--text-color);
   margin-top: 65px;
-  margin-left: 10px;
 }
 /*______________________________________________________________*/
 /*Grid */
@@ -361,9 +368,7 @@ section {
   .home-text h1 {
     font-size: 40px;
   }
-  .btn {
-    padding: 10px 20px;
-  }
+
   .movies-container {
     grid-template-columns: repeat(auto-fit, minmax(160px, auto));
   }
@@ -430,9 +435,12 @@ section {
   display: block;
   width: 150px;
   min-height: 35px;
-  background: #622252;
+  background: var(--heading-color);
+  color: #fff; /**/
+  /*background: #622252;*/
   border-radius: 3px;
-  border: 2px solid var(--heading-color);
+  /*border: 2px solid var(--heading-color);*/
+  border: 2px solid var(--button-color);
   outline: none;
   padding: 0 20px 0 10px;
   margin-top: 5px;
@@ -477,6 +485,7 @@ section {
   height: 35px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 15px;
   cursor: pointer;
   transition: background 0.3s ease;
