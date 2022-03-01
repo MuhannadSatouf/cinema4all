@@ -53,8 +53,8 @@ module.exports = function api(app) {
         if (result === null) { res.status(404); }
         res.json(result);
       });
-    } else if ({ name }.name === 'bookedAndAvailablePlaces') {
-      app.get('/api/bookedAndAvailablePlaces/' + ':scheduleId', (req, res) => {
+    } else if ({ name }.name === 'bookedPlaces') {
+      app.get('/api/bookedPlaces/' + ':scheduleId', (req, res) => {
         let stmt = db.prepare(`
         select * from ${name}
           where 

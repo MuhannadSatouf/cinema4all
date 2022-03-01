@@ -119,16 +119,16 @@ async function bookAMovie() {
     let arr = scheduleHall.split(".")
     let scheduleId = arr[0];
     let hallId = arr[1];
-    let list = await getData("/api/bookedAndAvailablePlaces/" + scheduleId);
+    let list = await getData("/api/bookedPlaces/" + scheduleId);
     console.log(list);
-    let sits = [];
-    for (let item of list) {
-      if (item.hallId == hallId) {
-        console.log(item);
-        sits.push(item);
-      }
-    }
-    rebuildContainer(sits);
+    /* let sits = [];
+     for (let item of list) {
+       if (item.hallId == hallId) {
+         console.log(item);
+         sits.push(item);
+       }
+     }*/
+    rebuildContainer(list);
   }
 
   function rebuildContainer(listOfSits) {
