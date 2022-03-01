@@ -65,6 +65,18 @@ module.exports = function api(app) {
         res.json(result);
 
       });
+    } else if ({ name }.name === 'places') {
+      app.get('/api/places/' + ':hallId', (req, res) => {
+        let stmt = db.prepare(`
+        select * from ${name}
+          where 
+          hallId = :hallId
+    `);
+        let result = stmt.all(req.params) || null;
+        if (result === null) { res.status(404); }
+        res.json(result);
+
+      });
     } else {// we do not generate a path with :ID for this view because they conflict with :userAlias paramener
       app.get('/api/' + name + '/:id', (req, res) => {
         let stmt = db.prepare(`

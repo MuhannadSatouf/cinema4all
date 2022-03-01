@@ -119,8 +119,10 @@ async function bookAMovie() {
     let arr = scheduleHall.split(".")
     let scheduleId = arr[0];
     let hallId = arr[1];
-    let list = await getData("/api/bookedPlaces/" + scheduleId);
-    console.log(list);
+
+    rebuildContainer(hallId);
+    let list2 = await getData("/api/bookedPlaces/" + scheduleId);
+    // console.log();
     /* let sits = [];
      for (let item of list) {
        if (item.hallId == hallId) {
@@ -128,12 +130,31 @@ async function bookAMovie() {
          sits.push(item);
        }
      }*/
-    rebuildContainer(list);
+
   }
 
-  function rebuildContainer(listOfSits) {
+  async function rebuildContainer(hallId) {
+    let list1 = await getData("/api/places/" + hallId);
+    console.log(list1);
+    let html = '';
+
+    html += '<div class="row">';
+    for (let j = 0; j < list1.length; j++) {
+      html += '<div class="seat" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+      if (((j + 1) % 10 == 0) && ((j + 1) != list1.length)) {
+        html += '</div >';
+        html += '<div class="row">';
+      } else if ((j + 1) == list1.length) {
+        html += '</div >';
+      }
+    }
+
+
+    console.log(html);
+    document.querySelector('.places').innerHTML = html;
+
     /*    <div class="row">
-          <div class="seat">A1</div>
+          <div class="seat" id=22>A1</div>
           <div class="seat"></div>
           <div class="seat"></div>
           <div class="seat"></div>
@@ -164,6 +185,6 @@ async function bookAMovie() {
           j++;
         }*/
   }
-}
 
+}
 bookAMovie();
