@@ -2,12 +2,10 @@ document.querySelectorAll(".filter-label-age").forEach(setupSelectorAge);
 document.querySelectorAll(".filter-label-type").forEach(setupSelectorType);
 
 function setupSelectorAge(selector) {
-  selector.addEventListener("change", (e) => {
-    console.log("changed", e.target.value);
-  });
+  selector.addEventListener("change", (e) => {});
 
   selector.addEventListener("mousedown", (e) => {
-    if (window.innerWidth >= 420) {
+    if (window.innerWidth >= 350) {
       // override look for non mobile
       e.preventDefault();
 
@@ -46,11 +44,10 @@ function setupSelectorAge(selector) {
 function setupSelectorType(selector) {
   selector.addEventListener("change", (e) => {
     MovieType = e.target.value;
-    console.log("changed", e.target.value);
   });
 
   selector.addEventListener("mousedown", (e) => {
-    if (window.innerWidth >= 420) {
+    if (window.innerWidth >= 350) {
       // override look for non mobile
       e.preventDefault();
 
@@ -99,32 +96,33 @@ async function applyFilter() {
   let filterList = [];
 
   for (let i = 0; i < movieList.length; i++) {
-    if (movieList[i].ageLimit <= age) {
-      if (type != "all") {
-        if (movieList[i].genre.includes(type)) {
-          filterList.push(movieList[i]);
-        }
-      }
-      if (type == "all") {
-        filterList.push(movieList[i]);
-      }
-      renderMovieList(".active-movies-container", filterList);
-    }
-    if (age == "all") {
-      if (type != "all") {
-        if (movieList[i].genre.includes(type)) {
-          filterList.push(movieList[i]);
-        }
-      }
-      renderMovieList(".active-movies-container", filterList);
-    }
-
     if (age == "all" && type == "all") {
       // Will rerender the first page with all movies
       start();
+      console.log(age);
     }
-    if (filterList.length == 0) {
-      //Another thing ti display at there is no movie with that filter
+
+    if (age == "all" && type != "all" && movieList[i].genre.includes(type)) {
+      filterList.push(movieList[i]);
+      renderMovieList(".active-movies-container", filterList);
+      console.log(age);
+    }
+
+    if (age != "all" && type == "all" && movieList[i].ageLimit <= age) {
+      console.log(age);
+      filterList.push(movieList[i]);
+      renderMovieList(".active-movies-container", filterList);
+    }
+
+    if (
+      age != "all" &&
+      type != "all" &&
+      movieList[i].ageLimit <= age &&
+      movieList[i].genre.includes(type)
+    ) {
+      console.log(age);
+      filterList.push(movieList[i]);
+      renderMovieList(".active-movies-container", filterList);
     }
   }
 }

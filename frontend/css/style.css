@@ -84,7 +84,8 @@ section {
 /*______________________________________________________________*/
 /*BTN */
 
-.btn, .apply-filter-btn {
+.btn,
+.apply-filter-btn {
   height: 35px;
   min-width: 80px;
   margin-left: 10px;
@@ -92,10 +93,10 @@ section {
   font-weight: 500;
   border-radius: 10px;
   color: var(--text-color);
-  text-align:center;
-  display:inline-block;
+  text-align: center;
+  display: inline-block;
 }
-.btn{
+.btn {
   padding-top: 5px;
 }
 .btn:hover,
@@ -104,6 +105,11 @@ section {
   transition: 0.3s;
 }
 .apply-filter-btn {
+  height: 30px;
+  width: 60px;
+  background: var(--button-color);
+  border-radius: 10px;
+  color: var(--text-color);
   margin-top: 65px;
 }
 /*______________________________________________________________*/
@@ -362,7 +368,7 @@ section {
   .home-text h1 {
     font-size: 40px;
   }
- 
+
   .movies-container {
     grid-template-columns: repeat(auto-fit, minmax(160px, auto));
   }
@@ -387,6 +393,17 @@ section {
   }
   .box .box-img {
     height: 250px;
+  }
+  .filter-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .filter-label-age select,
+  .filter-label-type select {
+    display: block;
+    width: 150px;
+    background: #622252;
+    border-radius: 3px;
   }
 }
 
@@ -416,10 +433,10 @@ section {
 .filter-label-age select,
 .filter-label-type select {
   display: block;
-  width: 200px;
+  width: 150px;
   min-height: 35px;
   background: var(--heading-color);
-   color: #fff;   /**/
+  color: #fff; /**/
   /*background: #622252;*/
   border-radius: 3px;
   /*border: 2px solid var(--heading-color);*/
@@ -450,7 +467,7 @@ section {
 
 .filter-label-age .selector-options,
 .filter-label-type .selector-options {
-  list-style:none;
+  list-style: none;
   padding: 5px 0;
   margin: 0;
   background: var(--heading-color);
