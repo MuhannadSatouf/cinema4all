@@ -1,6 +1,6 @@
 function renderMovie(cssSelector, movie) {
   let html = "";
-  html += '<div class="movie-page">';
+  html += '<div class="movieTrailerContainer">';
   html += '<div class="box" id="movie-box">';
   html += '<div id="box-img" class="box-img" >';
   html += '<img src="./images/' + movie.image2 + '" alt="" />';
@@ -13,7 +13,7 @@ function renderMovie(cssSelector, movie) {
   html += "<span>" + movie.duration + " / " + movie.genre + "</span>";
   html += "</div >";
   html += '<div class="video-box">';
-  html += "<iframe  src=" + movie.trailer + '>';
+  html += '<iframe class="responsive-iframe" src=' + movie.trailer + ">";
   html += "</iframe>";
   html += "</div >";
   html += "</div >";

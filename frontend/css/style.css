@@ -323,6 +323,21 @@ section {
   .home-text h1 {
     font-size: 25px;
   }
+  .video-box {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+  }
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @media (max-width: 774px) {
@@ -366,11 +381,29 @@ section {
     top: 100%;
   }
   .home-text h1 {
-    font-size: 40px;
+    font-size: 15px;
+  }
+  .home-text span {
+    font-size: 25px;
   }
 
   .movies-container {
     grid-template-columns: repeat(auto-fit, minmax(160px, auto));
+  }
+  .video-box {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+  }
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -378,32 +411,38 @@ section {
   header {
     padding: 5px 5%;
   }
+
   .home-text h1 {
-    font-size: 25px;
+    font-size: 10px;
+  }
+  .home-text span {
+    font-size: 15px;
   }
   .play {
     right: 15px;
     bottom: 5%;
   }
-  .play .fab {
-    padding: 5px;
-  }
+
   .movies-container {
     grid-template-columns: repeat(auto-fit, minmax(140px, auto));
   }
   .box .box-img {
     height: 250px;
   }
-  .filter-box {
-    display: flex;
-    flex-direction: column;
+  .video-box {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
   }
-  .filter-label-age select,
-  .filter-label-type select {
-    display: block;
-    width: 150px;
-    background: #622252;
-    border-radius: 3px;
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -433,7 +472,7 @@ section {
 .filter-label-age select,
 .filter-label-type select {
   display: block;
-  width: 150px;
+  width: 100px;
   min-height: 35px;
   background: var(--heading-color);
   color: #fff; /**/
@@ -454,7 +493,6 @@ section {
 .filter-label-age::after,
 .filter-label-type::after {
   content: "";
-  border-width: 5px;
   border-style: solid;
   border-color: transparent;
   border-top-color: rgb(0, 0, 0);
@@ -462,7 +500,6 @@ section {
   border-radius: 2px;
   position: absolute;
   right: 10px;
-  bottom: 10px;
 }
 
 .filter-label-age .selector-options,
@@ -478,6 +515,7 @@ section {
   position: absolute;
   left: 2%;
   top: 35%;
+  bottom: 10px;
 }
 
 .filter-label-age .selector-options li,
@@ -494,4 +532,11 @@ section {
 .filter-label-age .selector-options li:hover,
 .filter-label-type .selector-options li:hover {
   background: #2b0f22;
+}
+
+.movieTrailerContainer {
+  margin-top: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

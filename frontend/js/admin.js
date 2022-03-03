@@ -1,4 +1,3 @@
-/*
 function renderList(cssSelector, list) {
   let html = "<table>";
   html += "<thead><tr>";
@@ -24,8 +23,6 @@ function renderList(cssSelector, list) {
 async function showMovieById() {
   document.querySelector("main").innerHTML = renderMovie(
     ".movieTrailerContainer",
-    await getData("/api/allBooking/")
+    await getData("/api/allCustomerBookingsWithMovieHallPlaceDateTime/")
   );
 }
-
-*/
