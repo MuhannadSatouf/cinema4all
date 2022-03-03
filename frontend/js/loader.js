@@ -22,7 +22,7 @@ document.querySelector('header').addEventListener('click', function (event) {
   }
 
 
- 
+
 
   // it's an internal link
 
@@ -62,8 +62,8 @@ async function router() {
     });
   }
 
-  
-  
+
+
 
   route = route === "/" ? "/start" : route;
   route = "/partials" + route + ".html";
@@ -71,12 +71,12 @@ async function router() {
   let content = await (await fetch(route)).text();
 
   content.includes("<title>Error: Could not find page</title>")
-  
+
   document.querySelector("main").innerHTML = content;
 
   route === "/partials/start.html" && start();
 
- 
+  route=== "/partials/login.html" && loginLoad()
 
 }
 
