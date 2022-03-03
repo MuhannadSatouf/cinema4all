@@ -99,17 +99,14 @@ async function applyFilter() {
     if (age == "all" && type == "all") {
       // Will rerender the first page with all movies
       start();
-      console.log(age);
     }
 
     if (age == "all" && type != "all" && movieList[i].genre.includes(type)) {
       filterList.push(movieList[i]);
       renderMovieList(".active-movies-container", filterList);
-      console.log(age);
     }
 
     if (age != "all" && type == "all" && movieList[i].ageLimit <= age) {
-      console.log(age);
       filterList.push(movieList[i]);
       renderMovieList(".active-movies-container", filterList);
     }
@@ -120,8 +117,11 @@ async function applyFilter() {
       movieList[i].ageLimit <= age &&
       movieList[i].genre.includes(type)
     ) {
-      console.log(age);
       filterList.push(movieList[i]);
+      renderMovieList(".active-movies-container", filterList);
+    }
+    //If no match with movies will show an empty list
+    if (filterList.length == 0) {
       renderMovieList(".active-movies-container", filterList);
     }
   }
