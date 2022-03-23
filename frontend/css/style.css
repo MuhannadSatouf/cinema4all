@@ -85,7 +85,8 @@ section {
 /*BTN */
 
 .btn,
-.apply-filter-btn {
+.apply-filter-btn,
+.checkout_btn {
   height: 35px;
   min-width: 80px;
   margin-left: 10px;
@@ -100,17 +101,23 @@ section {
   padding-top: 5px;
 }
 .btn:hover,
-.apply-filter-btn:hover {
+.apply-filter-btn:hover,
+.checkout_btn {
   background: var(--main-color);
   transition: 0.3s;
 }
-.apply-filter-btn {
+.apply-filter-btn,
+.checkout_btn {
   height: 30px;
   width: 60px;
   background: var(--button-color);
   border-radius: 10px;
   color: var(--text-color);
   margin-top: 65px;
+}
+
+.checkout_btn{
+  margin-top: 20px;
 }
 /*______________________________________________________________*/
 /*Grid */

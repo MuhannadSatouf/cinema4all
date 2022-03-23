@@ -1,3 +1,5 @@
+let seatsToBuy = [];
+
 async function bookAMovie() {
 
   let movieSelect = await renderOptionList();
@@ -7,6 +9,7 @@ async function bookAMovie() {
   // let total = document.getElementById('total');
   let date = document.getElementById('date');
   let list1 = [];
+
 
   populateUI();
 
@@ -27,16 +30,28 @@ async function bookAMovie() {
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
     const selectedSeatsCount = selectedSeats.length;
+    console.log(selectedSeats);
 
     count.innerText = selectedSeatsCount;
-    // total.innerText = Math.round(selectedSeatsCount * ticketPrice);
 
+    let toBuy = [];
+    for (let i = 0; i < selectedSeats.length; i++) {
+      toBuy = list1.filter(obj => {
+        let value = selectedSeats[i].outerHTML;
+        let str = 'id="' + obj.id + '"';
+        return value.toString().includes(str);
+      });
+    }
+    seatsToBuy.push(toBuy);
+    //  console.log(seatsToBuy);
     setMovieData(movieSelect.selectedIndex, movieSelect.value);
+    if (seatsToBuy.length > 1) {
+      renderBooking(seatsToBuy);
+    }
   }
 
   // Get data from localstorage and populate UI
   function populateUI() {
-    // renderOptionList();
 
     movieSelect = document.getElementById('movie');
 
@@ -59,6 +74,7 @@ async function bookAMovie() {
 
   // Movie select event
   movieSelect.addEventListener('change', e => {
+    seatsToBuy = [];
     // ticketPrice = +e.target.value;
     console.log(e.target.value); // the schedule ID
     // get the list of available places for this movie view
@@ -131,8 +147,8 @@ async function bookAMovie() {
     for (let item of list2) {
       sits.push(item);
     }
-    console.log(sits);
-    console.log(list1);
+    //  console.log(sits);
+    //   console.log(list1);
     let html = '';
 
     html += '<div class="row">';
@@ -143,9 +159,9 @@ async function bookAMovie() {
       console.log(list1[j].id);
       console.log(ifOccupied);
       if (ifOccupied.length === 0) {
-        html += '<div class="seat" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+        html += '<div class="seat" id=' + list1[j].id + '>' + '</div >';
       } else {
-        html += '<div class="seat occupied" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+        html += '<div class="seat occupied" id=' + list1[j].id + '>' + '</div >';
       }
 
       if (((j + 1) % 10 == 0) && ((j + 1) != list1.length)) {
@@ -156,11 +172,72 @@ async function bookAMovie() {
       }
     }
 
-    console.log(html);
     document.querySelector('.places').innerHTML = html;
+  }
+
+  async function renderBooking(seatsToBuy) {
+    console.log(seatsToBuy);
+    let html = "<table id='tab_checkout'>";
+    html += `<tr>
+      <th>Row</th>
+      <th>Seat</th>
+      <th>Price</th>
+      <th>kr.</th>
+    </tr>`;
+
+    let i = 0;
+
+    for (let k = 1; k < seatsToBuy.length; k++) {
+      console.log(seatsToBuy[k]);
+      html += `<tr>
+        <th>${seatsToBuy[k][0].row}</th>
+        <th>${seatsToBuy[k][0].seat}</th>
+        <th><select id="drop${k}" onchange="getSource(this, ${k})"> 
+        <option value="85">adult</option>
+        <option value="65">child</option>
+        <option value="75">senior</option>
+        </select>
+        </th>
+        <th class="price" id="tb${k}">85</th>
+      </tr>`;
+      i++;
+    }
+    html += '</table>';
+    html += '<button class="checkout_btn" onClick="checkout()">Check out</button> ';
+
+    i = 0;
+
+    document.querySelector('.records').innerHTML = html;
+
+    return document.querySelector('.records');
+  }
+}
+bookAMovie();
+async function checkout() {
+  console.log("button!");
+  const booking = new BookingHeader(2, 4); // user id is hardcoded due to login functionality missing
+  let tableData = document.getElementById('tab_checkout').getElementsByTagName('th');
+  for (i = 3; i < tableData.length; i++) {
+    console.log(tableData[i]);
+    let id = tableData[i].innerText;
+    if (id !== null) {
+      console.log(id);
+      if (id === "") {
+        console.log(tableData[i].innerHTML);
+
+      }
+    }
+  }
 
 
+  //console.log(children);
+
+}
+
+function getSource(theSelectBox, index) {
+  console.log(theSelectBox.options[theSelectBox.selectedIndex].value);
+  if (index > 0) {
+    document.getElementById("tb" + index).textContent = theSelectBox.options[theSelectBox.selectedIndex].value;
   }
 
 }
-bookAMovie();
