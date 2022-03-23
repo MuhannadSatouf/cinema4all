@@ -1,8 +1,7 @@
-
-<article>
+<!--<article>
   <button onclick="document.getElementById('LoginBox').style.display='block'" style="width:auto;">Login</button>
-<link rel="stylesheet" href="../css/login.css" />
-  <div id="LoginBox" class="modal">
+  <link rel="stylesheet" href="../css/login.css" />
+  <form id="LoginBox" class="modal">
 
     <div class="modal-content animate">
       <div class="imgcontainer">
@@ -13,17 +12,18 @@
 
       <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input id="userAlias"type="text" placeholder="Enter Username" name="uname" required>
+        <input id="userAlias" type="text" placeholder="Enter Username" name="uname" required>
         <label for="psw"><b>Password</b></label>
-        <input id="password"type="password" placeholder="Enter Password" name="psw" required>
-        <button  id="loginButton" type="submit">Login</button>
+        <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+        <button id="loginButton" type="submit">Login</button>
 
       </div>
 
       <div class="container" style="background: color #000;">
-        <button id='cancelButton'type="button" onclick="document.getElementById('LoginBox').style.display='none'&& document.location.replace('/')"
+        <button id='cancelButton' type="button"
+          onclick="document.getElementById('LoginBox').style.display='none'&& document.location.replace('/')"
           class="cancelbtn">Cancel</button>
       </div>
-    </form>
+  </form>
   </div>
 </article>
