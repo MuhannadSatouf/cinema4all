@@ -62,9 +62,6 @@ async function router() {
     });
   }
 
-
-
-
   route = route === "/" ? "/start" : route;
   route = "/partials" + route + ".html";
 
@@ -76,7 +73,7 @@ async function router() {
 
   route === "/partials/start.html" && start();
 
-  route=== "/partials/login.html" && loginLoad()
+  route === "/partials/login.html" && loginLoad()
 
 }
 

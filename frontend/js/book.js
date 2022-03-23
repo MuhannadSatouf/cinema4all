@@ -1,14 +1,12 @@
-//const container = document.querySelector('.container');
-//const seats = document.querySelectorAll('.row .seat:not(.occupied)');
-
-
-
 async function bookAMovie() {
+
   let movieSelect = await renderOptionList();
   let container = document.querySelector('.container');
   let seats = document.querySelectorAll('.row .seat:not(.occupied)');
   let count = document.getElementById('count');
-  let total = document.getElementById('total');
+  // let total = document.getElementById('total');
+  let date = document.getElementById('date');
+  let list1 = [];
 
   populateUI();
 
@@ -31,7 +29,7 @@ async function bookAMovie() {
     const selectedSeatsCount = selectedSeats.length;
 
     count.innerText = selectedSeatsCount;
-    total.innerText = selectedSeatsCount * ticketPrice;
+    // total.innerText = Math.round(selectedSeatsCount * ticketPrice);
 
     setMovieData(movieSelect.selectedIndex, movieSelect.value);
   }
@@ -68,8 +66,8 @@ async function bookAMovie() {
 
 
     setMovieData(e.target.selectedIndex, e.target.value);
-    //updateSelectedCount();
-    console.log(e.target.innerText);
+    updateSelectedCount();
+    //console.log(e.target.innerText);
   });
 
   // Seat click event
@@ -120,27 +118,36 @@ async function bookAMovie() {
     let scheduleId = arr[0];
     let hallId = arr[1];
 
-    rebuildContainer(hallId);
-    let list2 = await getData("/api/bookedPlaces/" + scheduleId);
-    // console.log();
-    /* let sits = [];
-     for (let item of list) {
-       if (item.hallId == hallId) {
-         console.log(item);
-         sits.push(item);
-       }
-     }*/
+    rebuildContainer(hallId, scheduleId);
+
 
   }
 
-  async function rebuildContainer(hallId) {
-    let list1 = await getData("/api/places/" + hallId);
+  async function rebuildContainer(hallId, scheduleId) {
+    list1 = await getData("/api/places/" + hallId);
+    let list2 = await getData("/api/bookedPlaces/" + scheduleId);
+
+    let sits = [];
+    for (let item of list2) {
+      sits.push(item);
+    }
+    console.log(sits);
     console.log(list1);
     let html = '';
 
     html += '<div class="row">';
     for (let j = 0; j < list1.length; j++) {
-      html += '<div class="seat" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+      let ifOccupied = list2.filter(obj => {
+        return obj.placeId === list1[j].id;
+      });
+      console.log(list1[j].id);
+      console.log(ifOccupied);
+      if (ifOccupied.length === 0) {
+        html += '<div class="seat" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+      } else {
+        html += '<div class="seat occupied" id=' + list1[j].id + '>' + list1[j].placement + '</div >';
+      }
+
       if (((j + 1) % 10 == 0) && ((j + 1) != list1.length)) {
         html += '</div >';
         html += '<div class="row">';
@@ -149,41 +156,10 @@ async function bookAMovie() {
       }
     }
 
-
     console.log(html);
     document.querySelector('.places').innerHTML = html;
 
-    /*    <div class="row">
-          <div class="seat" id=22>A1</div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-          <div class="seat"></div>
-        </div>
-        let html = '';
-    
-        let row = listOfSits[0].row;
-    
-        while (j < 3) {
-          if ()
-            html += '<div class="row">';
-    
-          for (let seat of listOfSits) {
-            if (seat.scheduleId == null) {
-              html += '<div class="seat">' + seat.row + seat.seat + '</div>';
-            } else {
-              html += '<div class="seat occupied">' + seat.row + seat.seat + '</div>';
-            }
-          }
-    
-          html += '</div >';
-          j++;
-        }*/
+
   }
 
 }
