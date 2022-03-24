@@ -69,6 +69,18 @@ module.exports = function api(app, databaseConnection) {
         res.json(result);
 
       });
+    } else if ({ name }.name === 'scheduleFilter') {
+      app.get('/api/scheduleFilter/' + ':date', (req, res) => {
+        let stmt = db.prepare(`
+        select * from ${name}
+          where 
+          date = :date
+    `);
+        let result = stmt.all(req.params) || null;
+        if (result === null) { res.status(404); }
+        res.json(result);
+
+      });
     } else if ({ name }.name === 'places') {
       app.get('/api/places/' + ':hallId', (req, res) => {
         let stmt = db.prepare(`

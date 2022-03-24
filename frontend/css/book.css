@@ -5,7 +5,7 @@
   justify-content: center;
   height: 100vh;
 }
-.movie-container{
+.movie-container {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -54,8 +54,7 @@
 
 .container {
   perspective: 400px;
- 
- justify-content: center;
+  justify-content: center;
 }
 
 .seat {
@@ -139,7 +138,38 @@ p.text span {
   color: #6feaf6;
 }
 
-.records{
+.records,
+.filtered_schedule{
   margin-top: 30px;
   
+}
+
+table {
+  width: 100%;
+  border: 1px solid;
+}
+
+th, td{
+  padding: 5px;
+  text-align: left;
+}
+
+th{
+  border-bottom: 1px solid #ddd;
+}
+
+.schedules h2{
+   margin-top: 50px;
+   margin-bottom: 5px;
+   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 20px; 
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+ 
+ 
 }

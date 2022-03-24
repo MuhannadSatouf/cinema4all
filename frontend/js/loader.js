@@ -58,7 +58,12 @@ async function router() {
 
   if (route.includes('book')) {
     loadScript("../js/book.js", function () {
-      console.log("LOADED");
+      console.log("book.js LOADED");
+    });
+  }
+  if (route.includes('book')) {
+    loadScript("../js/dateFilter.js", function () {
+      console.log("dateFilter.js LOADED");
     });
   }
 

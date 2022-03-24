@@ -5,14 +5,11 @@ let newBooking = null;
 let toBuy = [];
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 
-async function bookAMovie() {
+async function prepareForBooking() {
 
   let movieSelect = await renderOptionList();
   let container = document.querySelector('.container');
   let count = document.getElementById('count');
-  let date = document.getElementById('date');
-
-
 
   populateUI();
 
@@ -55,7 +52,6 @@ async function bookAMovie() {
     // get the list of available places for this movie view
     requestLatestContainerState(e.target.value);
 
-    setMovieData(e.target.selectedIndex, e.target.value);
     updateSelectedCount();
     toBuy = [];
     document.querySelector('.records').innerHTML = "";
@@ -151,7 +147,7 @@ async function bookAMovie() {
 
 
 }
-bookAMovie();
+prepareForBooking();
 async function continue_() {
   if (toBuy.length > 0) {
     toBuy = [];
@@ -177,9 +173,9 @@ async function continue_() {
 async function checkout() {
   //console.log(newBooking);
   //let number = await (createHeader(2, scheduleId));
-  let tableData = document.getElementById('tab_checkout').getElementsByTagName('th');
+  let tableData = document.getElementById('tab_checkout').getElementsByTagName('td');
   let prices = [];
-  for (i = 7; i < tableData.length; i = i + 4) {
+  for (i = 3; i < tableData.length; i = i + 4) {
     let price = tableData[i].innerText;
     if (price !== null) {
       prices.push(price);
@@ -199,7 +195,7 @@ async function checkout() {
   localStorage.setItem('booking', newBooking);
   alert("The booking was successfully added. Total amount to pay is " + total + "kr.");
   document.querySelector('.records').innerHTML = "";
-  console.log(selectedSeats);
+
   if (selectedSeats !== null && selectedSeats.length > 0) {
     seats.forEach((seat, index) => {
       if (selectedSeats.indexOf(index) > -1) {
@@ -208,6 +204,7 @@ async function checkout() {
       }
     });
   }
+  total = 0;
 }
 
 function getSource(theSelectBox, index) {
@@ -224,26 +221,21 @@ async function renderBooking(seatsToBuy) {
       <th>kr.</th>
     </tr>`;
 
-  let i = 0;
-
   for (let k = 0; k < seatsToBuy.length; k++) {
     html += `<tr>
-        <th>${seatsToBuy[k].row}</th>
-        <th>${seatsToBuy[k].seat}</th>
-        <th><select id="drop${k}" onchange="getSource(this, ${k})"> 
+        <td>${seatsToBuy[k].row}</td>
+        <td>${seatsToBuy[k].seat}</td>
+        <td><select id="drop${k}" onchange="getSource(this, ${k})"> 
         <option value="85">adult</option>
         <option value="65">child</option>
         <option value="75">senior</option>
         </select>
-        </th>
-        <th class="price" id="tb${k}">85</th>
+        </td>
+        <td class="price" id="tb${k}">85</td>
       </tr>`;
-    i++;
   }
   html += '</table>';
   html += '<button class="checkout_btn" onClick="checkout()">Check out</button> ';
-
-  i = 0;
 
   document.querySelector('.records').innerHTML = html;
 
