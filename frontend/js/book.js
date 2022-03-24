@@ -1,47 +1,31 @@
-//let seatsToBuy = [];
+let selectedSeats = [];
 let list1 = [];
 let total = 0;
 let newBooking = null;
 let toBuy = [];
+const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 
 async function bookAMovie() {
 
   let movieSelect = await renderOptionList();
   let container = document.querySelector('.container');
-  let seats = document.querySelectorAll('.row .seat:not(.occupied)');
   let count = document.getElementById('count');
-  // let total = document.getElementById('total');
   let date = document.getElementById('date');
 
 
 
   populateUI();
 
-  let ticketPrice = +movieSelect.value;
-
-  // Save selected movie index and price
-  function setMovieData(movieIndex, moviePrice) {
-    localStorage.setItem('selectedMovieIndex', movieIndex);
-    localStorage.setItem('selectedMoviePrice', moviePrice);
-  }
-
   // Update count
   function updateSelectedCount() {
-    const selectedSeats = document.querySelectorAll('.row .seat.selected');
+    selectedSeats = document.querySelectorAll('.row .seat.selected');
 
     const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
 
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
     const selectedSeatsCount = selectedSeats.length;
-    // console.log(selectedSeats);
-
     count.innerText = selectedSeatsCount;
-
-    setMovieData(movieSelect.selectedIndex, movieSelect.value);
-    /* if (seatsToBuy.length > 1) {
-       renderBooking(seatsToBuy);
-     }*/
   }
 
   // Get data from localstorage and populate UI
@@ -68,21 +52,13 @@ async function bookAMovie() {
 
   // Movie select event
   movieSelect.addEventListener('change', e => {
-    console.log(e.target.value); // the schedule ID
     // get the list of available places for this movie view
     requestLatestContainerState(e.target.value);
 
     setMovieData(e.target.selectedIndex, e.target.value);
     updateSelectedCount();
     toBuy = [];
-    try {
-      let tableData = document.getElementById('records_checkout');
-      if (tableData !== "") {
-        document.getElementById('records_checkout').innerHTML = "";
-      }
-
-    } catch (error) { }
-
+    document.querySelector('.records').innerHTML = "";
   });
 
   // Seat click event
@@ -181,7 +157,7 @@ async function continue_() {
     toBuy = [];
   }
 
-  const selectedSeats = document.querySelectorAll('.row .seat.selected');
+  selectedSeats = document.querySelectorAll('.row .seat.selected');
   if (selectedSeats.length > 0) {
 
     for (let i = 0; i < list1.length; i++) {
@@ -215,12 +191,23 @@ async function checkout() {
   for (i = 0; i < toBuy.length; i++) {
     //param 1 = number
     let newLine = new BookingLine(2, toBuy[i].id, prices[i], newBooking.scheduleId);
-    // console.log(newLine);
     lines.push(newLine);
   }
 
   newBooking.lines = lines;
   console.log(newBooking);
+  localStorage.setItem('booking', newBooking);
+  alert("The booking was successfully added. Total amount to pay is " + total + "kr.");
+  document.querySelector('.records').innerHTML = "";
+  console.log(selectedSeats);
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) {
+        seat.className.replace('selected', 'occupied');
+        //seat.classList.replace('seat selected', 'seat occupied');
+      }
+    });
+  }
 }
 
 function getSource(theSelectBox, index) {
