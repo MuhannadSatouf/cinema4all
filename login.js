@@ -14,7 +14,7 @@ module.exports = function (app, db) {
     resave: false,
     saveUninitialized: true,
     cookie: { secure: 'auto' },
-    store: store({ dbPath: './database/cinema_booking.db' })
+    store: store({ dbPath: './database/cinema_booking.db3' })
 
   }))
 
