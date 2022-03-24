@@ -109,12 +109,11 @@ module.exports = function api(app, databaseConnection) {
       //Made for getting the header id to then use it for booking lines creation.
       for (let { name } of tables) {
         if ({ name }.name === 'bookingHeader') {
-          app.get('/api/' + name + '/' + ':userId' + '/' + ':scheduleId', (req, res) => {
+          app.get('/api/bookingHeader?userId=' + ':userId' + '&scheduleId=' + ':scheduleId', (req, res) => {
             let stmt = db.prepare(`
         select * from ${name}
           where 
-          userId = :userId and
-          scheduleId = :scheduleId
+          userId =:userId AND scheduleId =:scheduleId
           order by id desc limit 1;
     `);
             let result = stmt.all(req.params)[0] || null;

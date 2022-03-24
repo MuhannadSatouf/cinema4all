@@ -118,6 +118,7 @@ section {
 
 .checkout_btn{
   margin-top: 20px;
+  margin-inline-start: 50%;
 }
 /*______________________________________________________________*/
 /*Grid */

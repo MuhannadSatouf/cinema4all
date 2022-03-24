@@ -1,5 +1,8 @@
 //let seatsToBuy = [];
 let list1 = [];
+let total = 0;
+let newBooking = null;
+let toBuy = [];
 
 async function bookAMovie() {
 
@@ -65,14 +68,21 @@ async function bookAMovie() {
 
   // Movie select event
   movieSelect.addEventListener('change', e => {
-    // ticketPrice = +e.target.value;
     console.log(e.target.value); // the schedule ID
     // get the list of available places for this movie view
     requestLatestContainerState(e.target.value);
 
     setMovieData(e.target.selectedIndex, e.target.value);
     updateSelectedCount();
-    //console.log(e.target.innerText);
+    toBuy = [];
+    try {
+      let tableData = document.getElementById('records_checkout');
+      if (tableData !== "") {
+        document.getElementById('records_checkout').innerHTML = "";
+      }
+
+    } catch (error) { }
+
   });
 
   // Seat click event
@@ -120,11 +130,12 @@ async function bookAMovie() {
 
   async function requestLatestContainerState(scheduleHall) {
     let arr = scheduleHall.split(".")
-    let scheduleId = arr[0];
+    scheduleId = arr[0];
+    console.log(scheduleId);
     let hallId = arr[1];
 
     rebuildContainer(hallId, scheduleId);
-
+    newBooking = new BookingHeader(2, scheduleId);
 
   }
 
@@ -136,8 +147,7 @@ async function bookAMovie() {
     for (let item of list2) {
       sits.push(item);
     }
-    //  console.log(sits);
-    //   console.log(list1);
+
     let html = '';
 
     html += '<div class="row">';
@@ -145,8 +155,7 @@ async function bookAMovie() {
       let ifOccupied = list2.filter(obj => {
         return obj.placeId === list1[j].id;
       });
-      //  console.log(list1[j].id);
-      //   console.log(ifOccupied);
+
       if (ifOccupied.length === 0) {
         html += '<div class="seat" id=' + list1[j].id + '>' + '</div >';
       } else {
@@ -168,9 +177,13 @@ async function bookAMovie() {
 }
 bookAMovie();
 async function continue_() {
+  if (toBuy.length > 0) {
+    toBuy = [];
+  }
+
   const selectedSeats = document.querySelectorAll('.row .seat.selected');
   if (selectedSeats.length > 0) {
-    let toBuy = [];
+
     for (let i = 0; i < list1.length; i++) {
       for (let j = 0; j < selectedSeats.length; j++) {
         let value = selectedSeats[j].outerHTML;
@@ -181,35 +194,41 @@ async function continue_() {
         }
       }
     }
-
     renderBooking(toBuy);
   }
 }
 
 async function checkout() {
-  const booking = new BookingHeader(2, 4); // user id is hardcoded due to login functionality missing
+  //console.log(newBooking);
+  //let number = await (createHeader(2, scheduleId));
   let tableData = document.getElementById('tab_checkout').getElementsByTagName('th');
-  for (i = 3; i < tableData.length; i++) {
-    //console.log(tableData[i]);
-    let id = tableData[i].innerText;
-    if (id !== null) {
-      // console.log(id);
-
+  let prices = [];
+  for (i = 7; i < tableData.length; i = i + 4) {
+    let price = tableData[i].innerText;
+    if (price !== null) {
+      prices.push(price);
+      total = total + parseInt(price);
     }
   }
+
+  let lines = [];
+  for (i = 0; i < toBuy.length; i++) {
+    //param 1 = number
+    let newLine = new BookingLine(2, toBuy[i].id, prices[i], newBooking.scheduleId);
+    // console.log(newLine);
+    lines.push(newLine);
+  }
+
+  newBooking.lines = lines;
+  console.log(newBooking);
 }
 
 function getSource(theSelectBox, index) {
-  console.log(index);
   console.log(theSelectBox.options[theSelectBox.selectedIndex].value);
-
   document.getElementById("tb" + index).textContent = theSelectBox.options[theSelectBox.selectedIndex].value;
-
-
 }
 
 async function renderBooking(seatsToBuy) {
-  console.log(seatsToBuy);
   let html = "<table id='tab_checkout'>";
   html += `<tr>
       <th>Row</th>
@@ -221,7 +240,6 @@ async function renderBooking(seatsToBuy) {
   let i = 0;
 
   for (let k = 0; k < seatsToBuy.length; k++) {
-    console.log(seatsToBuy[k]);
     html += `<tr>
         <th>${seatsToBuy[k].row}</th>
         <th>${seatsToBuy[k].seat}</th>

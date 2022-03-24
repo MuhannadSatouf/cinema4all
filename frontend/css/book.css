@@ -55,6 +55,7 @@
 .container {
   perspective: 400px;
  
+ justify-content: center;
 }
 
 .seat {
@@ -136,4 +137,9 @@ p.text {
 
 p.text span {
   color: #6feaf6;
+}
+
+.records{
+  margin-top: 30px;
+  
 }
