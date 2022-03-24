@@ -73,7 +73,6 @@ async function router() {
 
   route === "/partials/start.html" && start();
 
-  route === "/partials/login.html" && loginLoad()
 
 }
 

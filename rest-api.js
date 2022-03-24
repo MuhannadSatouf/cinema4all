@@ -1,5 +1,6 @@
 const betterSqlite3 = require('better-sqlite3');
 const db = betterSqlite3('./database/cinema_booking.db3');
+let dbCon;
 
 //get the names of all tables and views in the db
 let views = db.prepare(`
@@ -17,7 +18,10 @@ let tables = db.prepare(`
 
 
 
-module.exports = function api(app) {
+module.exports = function api(app, databaseConnection) {
+
+
+  dbCon = databaseConnection;
   //add a special route that will list all views
   app.get('/api/views', (req, res) => {
     res.json(views);
@@ -88,57 +92,70 @@ module.exports = function api(app) {
         res.json(result);
       });
     }
-  }
+    app.post('/api/' + name, (req, res) => {
+      // do not allow id:s to be set manually
+      delete req.body.id;
+
+      // if this is the user table then encrypt the password
+      if (name === userTable) {
+        // add the most basic user role
+        // this also changes the user role to just "user"
+        // if someone tries to send something else through our REST-api
+        req.body[userRoleField] = 'user';
+      }
 
 
-  //this lets filter booking headers by userId and schedule Id. One recent record till be returned. 
-  //Made for getting the header id to then use it for booking lines creation.
-  for (let { name } of tables) {
-    if ({ name }.name === 'bookingHeader') {
-      app.get('/api/' + name + '/' + ':userId' + '/' + ':scheduleId', (req, res) => {
-        let stmt = db.prepare(`
+      //this lets filter booking headers by userId and schedule Id. One recent record till be returned. 
+      //Made for getting the header id to then use it for booking lines creation.
+      for (let { name } of tables) {
+        if ({ name }.name === 'bookingHeader') {
+          app.get('/api/' + name + '/' + ':userId' + '/' + ':scheduleId', (req, res) => {
+            let stmt = db.prepare(`
         select * from ${name}
           where 
           userId = :userId and
           scheduleId = :scheduleId
           order by id desc limit 1;
     `);
-        let result = stmt.all(req.params)[0] || null;
-        if (result === null) { res.status(404); }
-        res.json(result);
-      });
+            let result = stmt.all(req.params)[0] || null;
+            if (result === null) { res.status(404); }
+            res.json(result);
+          });
 
 
 
-      // booking lines will be returned for a specific header Id.
-    } else if ({ name }.name === 'bookingLine') {
-      app.get('/api/' + name + '/:bookingId', (req, res) => {
-        let stmt = db.prepare(`
+          // booking lines will be returned for a specific header Id.
+        } else if ({ name }.name === 'bookingLine') {
+          app.get('/api/' + name + '/:bookingId', (req, res) => {
+            let stmt = db.prepare(`
         SELECT * FROM ${name} 
         where bookingId = :bookingId 
     `);
-        let result = stmt.all(req.params) || null;
-        if (result === null) { res.status(404); }
-        res.json(result);
-      });
-    }
+            let result = stmt.all(req.params) || null;
+            if (result === null) { res.status(404); }
+            res.json(result);
+          });
+        }
 
 
-    app.post('/api/' + name, (req, res) => {   // is ont working - received null object as req.????
-      // do not let the id's to be set manually
-      //delete req.body.id;
-      console.log(req);
-      let qry = `
+        app.post('/api/' + name, (req, res) => {   // is ont working - received null object as req.????
+          // do not let the id's to be set manually
+          //delete req.body.id;
+          console.log(req);
+          let qry = `
   INSERT INTO ${name} (${Object.keys(req.body)})
   VALUES (${Object.keys(req.body).map(x => ':' + x)}))
   `;
-      console.log(qry);
-      let stmt = db.prepare(qry);
-      res.json(stmt.run(req.body));
-    });
+          console.log(qry);
+          let stmt = db.prepare(qry);
+          res.json(stmt.run(req.body));
+        });
 
+      }
+
+
+
+    }
+    )
   }
-
-
-
 }
