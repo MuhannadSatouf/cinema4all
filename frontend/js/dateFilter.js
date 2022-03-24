@@ -1,7 +1,9 @@
+let list = [];
 async function filter() {
   let date = document.querySelector('input[type="date"]');
-  let list = await getData("/api/scheduleFilter");
-  console.log(date.value);
+  if (list.length === 0) {
+    list = await getData("/api/scheduleFilter");
+  }
 
   let filtered = list.filter(function (e) {
     return e.date == date.value;
