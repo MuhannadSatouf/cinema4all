@@ -1,5 +1,5 @@
-document.querySelectorAll(".filter-label-age").forEach(setupSelectorAge);
-document.querySelectorAll(".filter-label-type").forEach(setupSelectorType);
+//document.querySelectorAll(".filter-label-age").forEach(setupSelectorAge);
+//document.querySelectorAll(".filter-label-type").forEach(setupSelectorType);
 
 function setupSelectorAge(selector) {
   selector.addEventListener("change", (e) => {});

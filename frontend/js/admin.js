@@ -26,3 +26,5 @@ async function showMovieById() {
     await getData("/api/allCustomerBookingsWithMovieHallPlaceDateTime/")
   );
 }
+
+showMovieById();
