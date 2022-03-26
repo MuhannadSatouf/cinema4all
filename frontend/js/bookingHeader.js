@@ -1,9 +1,7 @@
-
-
 class BookingHeader {
-  id;
   userId;
   scheduleId;
+  lines;
 
   constructor(userId, scheduleId) {
     this.userId = userId;

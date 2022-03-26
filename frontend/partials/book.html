@@ -1,5 +1,11 @@
 <article id='booking'>
   <div class="book-class">
+    <div class="schedules">
+      <h2>Schedule</h2>
+      <label> <span>Specify date:</span><input type="date" id="date"></label>
+      <button class="checkout_btn" onClick="filter()">Filter</button>
+      <div class="filtered_schedule"></div>
+    </div>
     <div class="movie-container">
       <label>Make your choice:</label>
       <select id="movie">
@@ -24,11 +30,12 @@
     <div class="container">
       <div class="screen"></div>
       <div class="places"></div>
-      <p class="text">
-        You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+      <p class="text" id="totals">
+        You have selected <span id="count">0</span> seats
       </p>
+      <button class="checkout_btn" onClick="continue_()">Continue</button>
+    </div>
+    <div class="records" id="records_checkout">
+
     </div>
 </article>
-
-<script src="../js/bookingHelp.js"></script>
-<script src="../js/bookingHeader.js"></script>

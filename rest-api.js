@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 const betterSqlite3 = require("better-sqlite3");
 const db = betterSqlite3("./database/cinema_booking.db3");
+=======
+const betterSqlite3 = require('better-sqlite3');
+const db = betterSqlite3('./database/cinema_booking.db3');
+let dbCon;
+>>>>>>> 5419b0f781323e22c28fd51d9a09b1da8f71a305
 
 //get the names of all tables and views in the db
 let views = db
@@ -23,7 +29,10 @@ let tables = db
   )
   .all();
 
-module.exports = function api(app) {
+module.exports = function api(app, databaseConnection) {
+
+
+  dbCon = databaseConnection;
   //add a special route that will list all views
   app.get("/api/views", (req, res) => {
     res.json(views);
@@ -74,8 +83,25 @@ module.exports = function api(app) {
         }
         res.json(result);
       });
+<<<<<<< HEAD
     } else if ({ name }.name === "places") {
       app.get("/api/places/" + ":hallId", (req, res) => {
+=======
+    } else if ({ name }.name === 'scheduleFilter') {
+      app.get('/api/scheduleFilter/' + ':date', (req, res) => {
+        let stmt = db.prepare(`
+        select * from ${name}
+          where 
+          date = :date
+    `);
+        let result = stmt.all(req.params) || null;
+        if (result === null) { res.status(404); }
+        res.json(result);
+
+      });
+    } else if ({ name }.name === 'places') {
+      app.get('/api/places/' + ':hallId', (req, res) => {
+>>>>>>> 5419b0f781323e22c28fd51d9a09b1da8f71a305
         let stmt = db.prepare(`
         select * from ${name}
           where 
@@ -101,6 +127,7 @@ module.exports = function api(app) {
         res.json(result);
       });
     }
+<<<<<<< HEAD
   }
 
   //this lets filter booking headers by userId and schedule Id. One recent record till be returned.
@@ -111,12 +138,33 @@ module.exports = function api(app) {
         "/api/" + name + "/" + ":userId" + "/" + ":scheduleId",
         (req, res) => {
           let stmt = db.prepare(`
+=======
+    app.post('/api/' + name, (req, res) => {
+      // do not allow id:s to be set manually
+      delete req.body.id;
+
+      // if this is the user table then encrypt the password
+      if (name === userTable) {
+        // add the most basic user role
+        // this also changes the user role to just "user"
+        // if someone tries to send something else through our REST-api
+        req.body[userRoleField] = 'user';
+      }
+
+
+      //this lets filter booking headers by userId and schedule Id. One recent record till be returned. 
+      //Made for getting the header id to then use it for booking lines creation.
+      for (let { name } of tables) {
+        if ({ name }.name === 'bookingHeader') {
+          app.get('/api/bookingHeader?userId=' + ':userId' + '&scheduleId=' + ':scheduleId', (req, res) => {
+            let stmt = db.prepare(`
+>>>>>>> 5419b0f781323e22c28fd51d9a09b1da8f71a305
         select * from ${name}
           where 
-          userId = :userId and
-          scheduleId = :scheduleId
+          userId =:userId AND scheduleId =:scheduleId
           order by id desc limit 1;
     `);
+<<<<<<< HEAD
           let result = stmt.all(req.params)[0] || null;
           if (result === null) {
             res.status(404);
@@ -146,12 +194,56 @@ module.exports = function api(app) {
       //delete req.body.id;
       console.log(req);
       let qry = `
+=======
+            let result = stmt.all(req.params)[0] || null;
+            if (result === null) { res.status(404); }
+            res.json(result);
+          });
+
+
+
+          // booking lines will be returned for a specific header Id.
+        } else if ({ name }.name === 'bookingLine') {
+          app.get('/api/' + name + '/:bookingId', (req, res) => {
+            let stmt = db.prepare(`
+        SELECT * FROM ${name} 
+        where bookingId = :bookingId 
+    `);
+            let result = stmt.all(req.params) || null;
+            if (result === null) { res.status(404); }
+            res.json(result);
+          });
+        }
+
+
+        app.post('/api/' + name, (req, res) => {   // is ont working - received null object as req.????
+          // do not let the id's to be set manually
+          //delete req.body.id;
+          console.log(req);
+          let qry = `
+>>>>>>> 5419b0f781323e22c28fd51d9a09b1da8f71a305
   INSERT INTO ${name} (${Object.keys(req.body)})
   VALUES (${Object.keys(req.body).map((x) => ":" + x)}))
   `;
+<<<<<<< HEAD
       console.log(qry);
       let stmt = db.prepare(qry);
       res.json(stmt.run(req.body));
     });
   }
 };
+=======
+          console.log(qry);
+          let stmt = db.prepare(qry);
+          res.json(stmt.run(req.body));
+        });
+
+      }
+
+
+
+    }
+    )
+  }
+}
+>>>>>>> 5419b0f781323e22c28fd51d9a09b1da8f71a305
