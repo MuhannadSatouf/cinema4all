@@ -1,3 +1,4 @@
+// inspiration taken from https://www.sourcecodeexamples.net/2020/12/movie-seat-booking-project-with.html
 let selectedSeats = [];
 let list1 = [];
 let total = 0;
